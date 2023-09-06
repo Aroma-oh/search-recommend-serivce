@@ -1,9 +1,15 @@
+import Search from 'containers/Search';
+import 'styles/index.css';
+import 'styles/global.css';
+
 function App() {
-  return (
-    <div className="App">
-      hi
-    </div>
-  );
+    // instance.get('/sick?q=감염').then((res) => console.info('data', res.data))
+
+    return (
+        <div className='App'>
+            <Search />
+        </div>
+    );
 }
 
 export default App;
