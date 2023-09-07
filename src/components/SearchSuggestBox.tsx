@@ -23,23 +23,28 @@ const SearchSuggestBox = ({
 
     return (
         <Box>
-            <ul ref={selectRef}>
+            <div>
                 {isEmptyInput ? (
                     <p>최근 검색어가 없습니다.</p>
                 ) : (
-                    <>
-                        <li>
+                    <div>
+                        <p className='value'>
                             <AiOutlineSearch /> {value}
-                        </li>
+                        </p>
                         <p>추천 검색어</p>
-                        {dataState.data.map((item, index) => (
-                            <li key={index} className={selectListIdx === index ? 'selected' : ''}>
-                                <AiOutlineSearch /> {item}
-                            </li>
-                        ))}
-                    </>
+                        <ul ref={selectRef}>
+                            {dataState.data.map((item, index) => (
+                                <li
+                                    key={index}
+                                    className={selectListIdx === index ? 'selected' : ''}
+                                >
+                                    <AiOutlineSearch /> {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 )}
-            </ul>
+            </div>
         </Box>
     );
 };
@@ -68,7 +73,10 @@ const Box = styled.div`
     li {
         padding: 12px 20px;
     }
-
+    .value {
+        font-size: 16px;
+        color: black;
+    }
     .selected {
         background-color: var(--bg-gray);
     }
