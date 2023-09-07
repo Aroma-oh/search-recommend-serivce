@@ -1,6 +1,10 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, Dispatch, useState} from 'react';
 
-type ReturnType = [string, (event: ChangeEvent<HTMLInputElement>) => void];
+type ReturnType = [
+    string,
+    (event: ChangeEvent<HTMLInputElement>) => void,
+    Dispatch<React.SetStateAction<string>>,
+];
 
 export const useInput = (initialData: string): ReturnType => {
     const [value, setValue] = useState(initialData);
@@ -9,5 +13,5 @@ export const useInput = (initialData: string): ReturnType => {
         setValue(event.target.value);
     };
 
-    return [value, inputChange];
+    return [value, inputChange, setValue];
 };
