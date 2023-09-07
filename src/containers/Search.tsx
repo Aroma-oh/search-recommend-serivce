@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import styled from 'styled-components';
 import SearchBar from 'components/SearchBar';
 import SearchSuggestBox from 'components/SearchSuggestBox';
@@ -8,7 +9,6 @@ import {searchKeywordState, apiState} from 'store/atom';
 import {useUpdateKeyword} from 'hooks/useUpdateKeyword';
 import {useInput} from 'hooks/useInput';
 import {useCacheStore} from 'hooks/useCacheStore';
-import {useEffect, useState} from 'react';
 import {useListSelect} from 'hooks/useSelectList';
 
 const Search = () => {
@@ -29,12 +29,6 @@ const Search = () => {
         if (searchKeyword) caching(searchKeyword);
     }, [searchKeyword, caching]);
 
-    const [isSearchBarFocused, setIsSearchBarFocused] = useState(false); // focus 분리
-
-    const focus = () => {
-        setIsSearchBarFocused(true);
-    };
-
     const {selectListIdx, updateSelectIdx, selectRef} = useListSelect(isEmptyInput);
 
     return (
@@ -43,18 +37,15 @@ const Search = () => {
                 placeholder='질환명을 입력해주세요'
                 value={value}
                 changeValue={changeValue}
-                focus={focus}
                 updateSelectIdx={updateSelectIdx}
             />
-            {isSearchBarFocused && (
-                <SearchSuggestBox
-                    dataState={dataState}
-                    isEmptyInput={isEmptyInput}
-                    selectRef={selectRef}
-                    selectListIdx={selectListIdx}
-                    value={value}
-                />
-            )}
+            <SearchSuggestBox
+                dataState={dataState}
+                isEmptyInput={isEmptyInput}
+                selectRef={selectRef}
+                selectListIdx={selectListIdx}
+                value={value}
+            />
         </Box>
     );
 };
@@ -71,4 +62,10 @@ const Box = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &:has(input:focus) {
+        & > div {
+            display: block;
+        }
+    }
 `;

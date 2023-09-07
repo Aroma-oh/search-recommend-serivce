@@ -4,11 +4,10 @@ interface SearchBarProps {
     placeholder: string;
     value: string;
     changeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    focus: () => void;
     updateSelectIdx: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const SearchBar = ({placeholder, value, changeValue, focus, updateSelectIdx}: SearchBarProps) => {
+const SearchBar = ({placeholder, value, changeValue, updateSelectIdx}: SearchBarProps) => {
     return (
         <Box>
             <label htmlFor='search'> </label>
@@ -17,7 +16,6 @@ const SearchBar = ({placeholder, value, changeValue, focus, updateSelectIdx}: Se
                 placeholder={placeholder}
                 value={value}
                 onChange={changeValue}
-                onFocus={focus}
                 autoComplete='off'
                 onKeyDown={updateSelectIdx}
             />

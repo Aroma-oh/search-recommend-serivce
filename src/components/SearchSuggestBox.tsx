@@ -47,6 +47,8 @@ const SearchSuggestBox = ({
 export default SearchSuggestBox;
 
 const Box = styled.div`
+    display: none;
+
     width: 450px;
     min-height: 140px;
 
