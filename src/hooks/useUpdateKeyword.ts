@@ -7,6 +7,8 @@ import {
     keepKoreanSyllables,
 } from 'utils/searchHelpers';
 
+const DEBOUNCE_TIMING = 1000;
+
 export const useUpdateKeyword = () => {
     const setSearchKeyword = useSetRecoilState(searchKeywordState);
 
@@ -16,7 +18,7 @@ export const useUpdateKeyword = () => {
         if (handledValue.match(/^[a-zA-Z]*$/)) {
             const debouncedSearch = debounce(() => {
                 setSearchKeyword(handledValue);
-            }, 1000);
+            }, DEBOUNCE_TIMING);
 
             debouncedSearch(handledValue);
         }

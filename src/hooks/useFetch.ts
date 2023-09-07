@@ -3,6 +3,8 @@ import {useSetRecoilState} from 'recoil';
 import {instance} from 'apis/axios';
 import {apiState} from 'store/atom';
 
+const MAX_LENGTH = 7;
+
 export const useFetch = () => {
     const setFetch = useSetRecoilState(apiState);
 
@@ -13,7 +15,7 @@ export const useFetch = () => {
 
                 const res = await instance.get(`/sick?sickNm_like=${searchKeyword}`);
                 const preprocessedData = res.data
-                    .slice(0, 7)
+                    .slice(0, MAX_LENGTH)
                     .map((item: {sickCd: string; sickNm: string}) => item.sickNm);
 
                 setFetch({data: preprocessedData, status: 'IDLE'});
