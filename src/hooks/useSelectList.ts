@@ -13,6 +13,7 @@ export const useListSelect = (isEmptyInput: boolean) => {
 
         switch (event.key) {
             case 'ArrowUp':
+                event.preventDefault();
                 if (selectListIdx < 0) return;
                 setSelectListIdx(prev => prev - 1);
                 if (selectListIdx <= 0) setSelectListIdx(-1);
