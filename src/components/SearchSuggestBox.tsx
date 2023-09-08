@@ -84,6 +84,7 @@ const Box = styled.div`
 
     width: 450px;
     min-height: 140px;
+    max-height: 60vh;
 
     margin-top: 6px;
     padding: 20px 0;
@@ -92,6 +93,14 @@ const Box = styled.div`
     background: var(--white);
     box-shadow: var(--box-shadow);
     border-radius: 14px;
+
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     p {
         color: var(--gray);
