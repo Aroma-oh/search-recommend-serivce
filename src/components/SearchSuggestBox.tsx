@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Api} from 'types/api';
 import {AiOutlineSearch} from 'react-icons/ai';
-import {RefObject} from 'react';
+import {Fragment, RefObject} from 'react';
 
 interface SearchSuggestBoxProps {
     dataState: Api;
@@ -23,7 +23,7 @@ const SearchSuggestBox = ({
     noSearchLog,
 }: SearchSuggestBoxProps) => {
     if (dataState.status === 'ERROR' || !dataState.data)
-        return <Box>결과를 불러오는데 실패했습니다. </Box>;
+        return <Box>검색 결과를 불러오는데 실패했습니다. </Box>;
 
     return (
         <Box>
@@ -58,7 +58,13 @@ const SearchSuggestBox = ({
                                             key={index}
                                             className={selectListIdx === index ? 'selected' : ''}
                                         >
-                                            <AiOutlineSearch /> {item}
+                                            <AiOutlineSearch />{' '}
+                                            {item.split(value).map((char, index) => (
+                                                <Fragment key={index}>
+                                                    {index > 0 && <strong>{value}</strong>}
+                                                    {char}
+                                                </Fragment>
+                                            ))}
                                         </li>
                                     ))}
                                 </ul>
@@ -101,5 +107,8 @@ const Box = styled.div`
     }
     .selected {
         background-color: var(--bg-gray);
+    }
+    strong {
+        font-weight: 700;
     }
 `;
