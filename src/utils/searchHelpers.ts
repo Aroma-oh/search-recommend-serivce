@@ -14,11 +14,15 @@ export const debounce = (callback: (value: string) => void, delay: number) => {
     };
 };
 
-export const isKoreanSyllable = (text: string) => {
-    return /^[가-힣]+$/.test(text);
+export const isKorean = (text: string) => {
+    return /^[ㄱ-ㅎ가-힣]+$/.test(text);
 };
 
 export const keepKoreanSyllables = (text: string) => {
     const koreanText = text.match(/[가-힣]+/g);
     return koreanText ? koreanText.join('') : '';
+};
+
+export const isEnglish = (text: string) => {
+    return /^[a-zA-Z]*$/.test(text);
 };
