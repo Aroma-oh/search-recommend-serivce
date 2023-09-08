@@ -43,4 +43,5 @@ const Input = styled.input`
     overflow: auto;
 
     font-size: 16px;
+    outline: none;
 `;
