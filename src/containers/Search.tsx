@@ -45,6 +45,7 @@ const Search = () => {
 
     return (
         <Box>
+            <h1> 국내 임상시험 검색 </h1>
             <SearchBar
                 submit={submit}
                 placeholder='질환명을 입력해주세요'
@@ -68,15 +69,22 @@ const Search = () => {
 export default Search;
 
 const Box = styled.section`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 80vh;
+    padding-top: 20vh;
 
     background-color: var(--bg-main);
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+
+    h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 21px;
+    }
 
     &:has(input:focus) {
         & > div {
