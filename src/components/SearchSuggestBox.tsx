@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {Api} from 'types/api';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {Fragment, RefObject} from 'react';
+import {getLastWordAfterSpace} from 'utils/searchHelpers';
 
 interface SearchSuggestBoxProps {
     dataState: Api;
@@ -37,10 +38,7 @@ const SearchSuggestBox = ({
                                 <p>최근 검색어</p>
                                 <ul ref={listRef}>
                                     {searchLog.map((item, index) => (
-                                        <li
-                                            key={index}
-                                            className={selectListIdx === index ? 'selected' : ''}
-                                        >
+                                        <li key={index}>
                                             <AiOutlineSearch /> {item}
                                         </li>
                                     ))}
@@ -58,13 +56,15 @@ const SearchSuggestBox = ({
                                             key={index}
                                             className={selectListIdx === index ? 'selected' : ''}
                                         >
-                                            <AiOutlineSearch />{' '}
-                                            {item.split(value).map((char, index) => (
-                                                <Fragment key={index}>
-                                                    {index > 0 && <strong>{value}</strong>}
-                                                    {char}
-                                                </Fragment>
-                                            ))}
+                                            <AiOutlineSearch />
+                                            {item
+                                                .split(getLastWordAfterSpace(value))
+                                                .map((char, index) => (
+                                                    <Fragment key={index}>
+                                                        {index > 0 && <strong>{value}</strong>}
+                                                        {char}
+                                                    </Fragment>
+                                                ))}
                                         </li>
                                     ))}
                                 </ul>
