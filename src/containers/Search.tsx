@@ -4,7 +4,7 @@ import SearchBar from 'components/SearchBar';
 import SearchSuggestBox from 'components/SearchSuggestBox';
 
 import {useRecoilValue} from 'recoil';
-import {searchKeywordState, apiState} from 'store/atom';
+import {searchKeywordState, dataState} from 'store/atom';
 
 import {useUpdateKeyword} from 'hooks/useUpdateKeyword';
 import {useInput} from 'hooks/useInput';
@@ -16,7 +16,7 @@ const Search = () => {
     const isEmptyInput = value.length === 0;
 
     const searchKeyword = useRecoilValue(searchKeywordState);
-    const dataState = useRecoilValue(apiState);
+    const data = useRecoilValue(dataState);
 
     const updateKeyword = useUpdateKeyword();
     const caching = useCacheStore();
@@ -40,7 +40,7 @@ const Search = () => {
                 updateSelectIdx={updateSelectIdx}
             />
             <SearchSuggestBox
-                dataState={dataState}
+                dataState={data}
                 isEmptyInput={isEmptyInput}
                 selectRef={selectRef}
                 selectListIdx={selectListIdx}

@@ -11,8 +11,8 @@ export const cacheStoreState = atom<CacheStoreData>({
     default: {},
 });
 
-export const apiState = atom<Api>({
-    key: 'apiState',
+export const dataState = atom<Api>({
+    key: 'dataState',
     default: {
         data: [],
         status: 'IDLE',
