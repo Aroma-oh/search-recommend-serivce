@@ -33,14 +33,19 @@ const SearchSuggestBox = ({
                 ) : (
                     <>
                         {isEmptyInput ? (
-                            <ul>
+                            <div>
                                 <p>최근 검색어</p>
-                                {searchLog.map((item, index) => (
-                                    <li key={index}>
-                                        <AiOutlineSearch /> {item}
-                                    </li>
-                                ))}
-                            </ul>
+                                <ul ref={listRef}>
+                                    {searchLog.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className={selectListIdx === index ? 'selected' : ''}
+                                        >
+                                            <AiOutlineSearch /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         ) : (
                             <div>
                                 <p className='value'>
