@@ -1,14 +1,14 @@
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {cacheStoreState, apiState} from 'store/atom';
+import {useRecoilState, useSetRecoilState} from 'recoil';
+import {cacheStoreState, dataState} from 'store/atom';
 import {useFetch} from './useFetch';
 import {useCallback} from 'react';
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
-// const ONE_DAY_MS = 5;
+// const ONE_DAY_MS = 5000;
 
 export const useCacheStore = () => {
-    const fetchState = useRecoilValue(apiState);
     const [cacheStore, setCacheStoreState] = useRecoilState(cacheStoreState);
+    const setData = useSetRecoilState(dataState);
 
     const fetchData = useFetch();
 
@@ -21,15 +21,20 @@ export const useCacheStore = () => {
                 !cacheStore[searchKeyword?.toUpperCase()] ||
                 cacheStore[searchKeyword]?.expireTime < currentTime
             ) {
-                await fetchData(searchKeyword);
+                const newData = await fetchData(searchKeyword);
                 setCacheStoreState(prev => ({
                     ...prev,
-                    [searchKeyword.toUpperCase()]: {data: fetchState.data ?? [], expireTime},
+                    [searchKeyword.toUpperCase()]: {data: newData, expireTime},
                 }));
+            } else {
+                if (cacheStore[searchKeyword])
+                    setData(prev => ({...prev, data: cacheStore[searchKeyword].data ?? []}));
             }
         },
-        [cacheStore, setCacheStoreState, fetchData]
+        [cacheStore, setCacheStoreState, fetchData, setData]
     );
 
     return caching;
 };
+
+// 키 - 값 제대로 캐싱 안됨
