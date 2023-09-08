@@ -21,7 +21,7 @@ export const useFetch = () => {
                 setFetch({data: preprocessedData, status: 'IDLE'});
 
                 console.info('calling api');
-                console.info(`searchKeyword: ${searchKeyword}`); // 제거 예정
+                console.info(`searchKeyword: ${searchKeyword}`);
 
                 return preprocessedData;
             } catch (error) {
