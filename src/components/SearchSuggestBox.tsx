@@ -52,7 +52,7 @@ const SearchSuggestBox = ({
                                 <p>추천 검색어</p>
                                 <ul ref={listRef}>
                                     {dataState.data.length === 0 ? (
-                                        <li>검색결과 없음</li>
+                                        <li>검색어 없음</li>
                                     ) : (
                                         dataState.data.map((item, index) => (
                                             <li
