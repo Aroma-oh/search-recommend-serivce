@@ -1,3 +1,4 @@
+import {useRef} from 'react';
 import {useSetRecoilState} from 'recoil';
 import {searchKeywordState} from 'store/atom';
 import {
@@ -7,26 +8,26 @@ import {
     keepKoreanSyllables,
 } from 'utils/searchHelpers';
 
-const DEBOUNCE_TIMING = 1000;
+const DEBOUNCE_TIMING = 100;
 
 export const useUpdateKeyword = () => {
     const setSearchKeyword = useSetRecoilState(searchKeywordState);
 
-    const updateKeyword = (value: string) => {
-        const handledValue = getLastWordAfterSpace(value);
+    const debouncedSearch = useRef(
+        debounce((value: string) => {
+            const handledValue = getLastWordAfterSpace(value);
 
-        if (handledValue.match(/^[a-zA-Z]*$/)) {
-            const debouncedSearch = debounce(() => {
+            if (isKoreanSyllable(handledValue[handledValue.length - 1])) {
+                const koValue = keepKoreanSyllables(handledValue);
+                setSearchKeyword(koValue);
+            } else {
                 setSearchKeyword(handledValue);
-            }, DEBOUNCE_TIMING);
+            }
+        }, DEBOUNCE_TIMING)
+    ).current;
 
-            debouncedSearch(handledValue);
-        }
-
-        if (isKoreanSyllable(handledValue[handledValue.length - 1])) {
-            const koValue = keepKoreanSyllables(handledValue);
-            setSearchKeyword(koValue);
-        }
+    const updateKeyword = (value: string) => {
+        debouncedSearch(value);
     };
 
     return updateKeyword;
