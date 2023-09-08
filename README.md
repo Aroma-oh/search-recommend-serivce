@@ -49,4 +49,12 @@ $ npm start
 * 후보 모두 인위적으로 메모리를 비워주어야 하기 때문에, 탭을 닫으면 모든 캐싱을 제거하는 상태로 관리를 선택했습니다.
 * 캐시 스토어로써 사용되는 상태는 recoil atom을 이용했습니다. 
 ### API 호출 횟수 최소화 전략
+* API 호출 횟수를 줄이는 전략으로 키워드 핸들링을 선택했습니다. 내용은 ["키워드를 전처리하자"](https://github.com/Aroma-oh/search-recommend-serivce#%ED%82%A4%EC%9B%8C%EB%93%9C%EB%A5%BC-%EC%A0%84%EC%B2%98%EB%A6%AC%ED%95%98%EC%9E%90)와 같으며, 관련 코드는 아래와 같습니다.
+  https://github.com/Aroma-oh/search-recommend-serivce/blob/38b045f69280afcedf910f73895f0706985bcfae/src/hooks/useUpdateKeyword.ts#L12-L34
 ### 키보드만으로 추천 검색어 이동 방안
+* 키보드 이벤트의 'ArrowUp', 'ArrowDown'를 이용하여 방향키로 추천 검색어를 선택하고, 'Enter' 키로 검색이 가능하도록 했습니다.
+  https://github.com/Aroma-oh/search-recommend-serivce/blob/38b045f69280afcedf910f73895f0706985bcfae/src/hooks/useSelectList.ts#L3-L43
+
+----
+## 🎊 팀프로젝트 결과물[(바로가기)](https://github.com/wanted-pre-onboarding-12th-11/pre-onboarding-12th-3-11)
+* 개인 과제를 종합하여 best practice를 찾아내는 팀 과제 링크입니다.
