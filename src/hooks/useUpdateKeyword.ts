@@ -9,7 +9,7 @@ import {
     isEnglish,
 } from 'utils/searchHelpers';
 
-const DEBOUNCE_TIMING = 400;
+const DEBOUNCE_TIMING = 500;
 
 export const useUpdateKeyword = () => {
     const setSearchKeyword = useSetRecoilState(searchKeywordState);
@@ -23,11 +23,11 @@ export const useUpdateKeyword = () => {
     const updateKeyword = (value: string) => {
         const handledValue = getLastWordAfterSpace(value);
 
-        if (isEnglish(handledValue)) debouncedSearch(handledValue);
         if (isKorean(handledValue) && handledValue.length > 0) {
             const koValue = keepKoreanSyllables(handledValue);
-            setSearchKeyword(koValue);
+            debouncedSearch(koValue);
         }
+        if (isEnglish(handledValue)) debouncedSearch(handledValue);
     };
 
     return updateKeyword;
