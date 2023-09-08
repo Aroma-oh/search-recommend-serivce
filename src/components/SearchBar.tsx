@@ -5,11 +5,12 @@ interface SearchBarProps {
     value: string;
     changeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
     updateSelectIdx: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    submit: (event: React.FormEvent) => void;
 }
 
-const SearchBar = ({placeholder, value, changeValue, updateSelectIdx}: SearchBarProps) => {
+const SearchBar = ({placeholder, value, changeValue, updateSelectIdx, submit}: SearchBarProps) => {
     return (
-        <Box>
+        <Box onSubmit={submit}>
             <label htmlFor='search'> </label>
             <Input
                 id='search'
