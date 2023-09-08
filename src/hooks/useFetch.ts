@@ -1,12 +1,12 @@
 import {useCallback} from 'react';
 import {useSetRecoilState} from 'recoil';
 import {instance} from 'apis/axios';
-import {apiState} from 'store/atom';
+import {dataState} from 'store/atom';
 
 const MAX_LENGTH = 7;
 
 export const useFetch = () => {
-    const setFetch = useSetRecoilState(apiState);
+    const setFetch = useSetRecoilState(dataState);
 
     const fetchData = useCallback(
         async (searchKeyword: string) => {
@@ -22,7 +22,8 @@ export const useFetch = () => {
 
                 console.info('calling api');
                 console.info(`searchKeyword: ${searchKeyword}`); // 제거 예정
-                console.info(`preprocessedData: ${preprocessedData}`); // 제거 예정
+
+                return preprocessedData;
             } catch (error) {
                 setFetch({data: [], status: 'ERROR'});
             } finally {
