@@ -6,17 +6,21 @@ import {RefObject} from 'react';
 interface SearchSuggestBoxProps {
     dataState: Api;
     isEmptyInput: boolean;
-    selectRef: RefObject<HTMLUListElement>;
+    listRef: RefObject<HTMLUListElement>;
     selectListIdx: number;
     value: string;
+    searchLog: string[];
+    noSearchLog: boolean;
 }
 
 const SearchSuggestBox = ({
     dataState,
     isEmptyInput,
-    selectRef,
+    listRef,
     selectListIdx,
     value,
+    searchLog,
+    noSearchLog,
 }: SearchSuggestBoxProps) => {
     if (dataState.status === 'ERROR' || !dataState.data)
         return <Box>결과를 불러오는데 실패했습니다. </Box>;
@@ -24,25 +28,38 @@ const SearchSuggestBox = ({
     return (
         <Box>
             <div>
-                {isEmptyInput ? (
+                {isEmptyInput && noSearchLog ? (
                     <p>최근 검색어가 없습니다.</p>
                 ) : (
-                    <div>
-                        <p className='value'>
-                            <AiOutlineSearch /> {value}
-                        </p>
-                        <p>추천 검색어</p>
-                        <ul ref={selectRef}>
-                            {dataState.data.map((item, index) => (
-                                <li
-                                    key={index}
-                                    className={selectListIdx === index ? 'selected' : ''}
-                                >
-                                    <AiOutlineSearch /> {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <>
+                        {isEmptyInput ? (
+                            <ul>
+                                <p>최근 검색어</p>
+                                {searchLog.map((item, index) => (
+                                    <li key={index}>
+                                        <AiOutlineSearch /> {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <div>
+                                <p className='value'>
+                                    <AiOutlineSearch /> {value}
+                                </p>
+                                <p>추천 검색어</p>
+                                <ul ref={listRef}>
+                                    {dataState.data.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className={selectListIdx === index ? 'selected' : ''}
+                                        >
+                                            <AiOutlineSearch /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
         </Box>
