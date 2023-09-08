@@ -10,11 +10,10 @@ import {useUpdateKeyword} from 'hooks/useUpdateKeyword';
 import {useInput} from 'hooks/useInput';
 import {useCacheStore} from 'hooks/useCacheStore';
 import {useListSelect} from 'hooks/useSelectList';
+import useSearchHistory from 'hooks/useSearchHistory';
 
 const Search = () => {
-    const [value, changeValue] = useInput('');
-    const isEmptyInput = value.length === 0;
-
+    const [value, changeValue, setValue] = useInput('');
     const searchKeyword = useRecoilValue(searchKeywordState);
     const data = useRecoilValue(dataState);
 
@@ -29,11 +28,25 @@ const Search = () => {
         if (searchKeyword) caching(searchKeyword);
     }, [searchKeyword, caching]);
 
-    const {selectListIdx, updateSelectIdx, selectRef} = useListSelect(isEmptyInput);
+    const {searchLog, addSearchLog} = useSearchHistory();
+
+    const submit = (event: React.FormEvent) => {
+        event.preventDefault();
+        if (!value) return;
+        setValue('');
+        addSearchLog(value);
+        alert(`검색: ${value}`);
+    };
+
+    const isEmptyInput = !value.length;
+    const noSearchLog = !searchLog.length;
+
+    const {selectListIdx, updateSelectIdx, listRef} = useListSelect(isEmptyInput, setValue);
 
     return (
         <Box>
             <SearchBar
+                submit={submit}
                 placeholder='질환명을 입력해주세요'
                 value={value}
                 changeValue={changeValue}
@@ -42,9 +55,11 @@ const Search = () => {
             <SearchSuggestBox
                 dataState={data}
                 isEmptyInput={isEmptyInput}
-                selectRef={selectRef}
+                listRef={listRef}
                 selectListIdx={selectListIdx}
                 value={value}
+                searchLog={searchLog}
+                noSearchLog={noSearchLog}
             />
         </Box>
     );
