@@ -51,22 +51,28 @@ const SearchSuggestBox = ({
                                 </p>
                                 <p>추천 검색어</p>
                                 <ul ref={listRef}>
-                                    {dataState.data.map((item, index) => (
-                                        <li
-                                            key={index}
-                                            className={selectListIdx === index ? 'selected' : ''}
-                                        >
-                                            <AiOutlineSearch />
-                                            {item
-                                                .split(getLastWordAfterSpace(value))
-                                                .map((char, index) => (
-                                                    <Fragment key={index}>
-                                                        {index > 0 && <strong>{value}</strong>}
-                                                        {char}
-                                                    </Fragment>
-                                                ))}
-                                        </li>
-                                    ))}
+                                    {dataState.data.length === 0 ? (
+                                        <li>검색결과 없음</li>
+                                    ) : (
+                                        dataState.data.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                className={
+                                                    selectListIdx === index ? 'selected' : ''
+                                                }
+                                            >
+                                                <AiOutlineSearch />
+                                                {item
+                                                    .split(getLastWordAfterSpace(value))
+                                                    .map((char, index) => (
+                                                        <Fragment key={index}>
+                                                            {index > 0 && <strong>{value}</strong>}
+                                                            {char}
+                                                        </Fragment>
+                                                    ))}
+                                            </li>
+                                        ))
+                                    )}
                                 </ul>
                             </div>
                         )}
