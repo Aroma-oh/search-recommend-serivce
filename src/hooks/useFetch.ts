@@ -13,7 +13,7 @@ export const useFetch = () => {
             try {
                 setFetch({data: [], status: 'LOADING'});
 
-                const res = await instance.get(`/?sickNm_like=${searchKeyword}`);
+                const res = await instance.get(`/sick?sickNm_like=${searchKeyword}`);
                 const preprocessedData = res.data
                     .slice(0, MAX_LENGTH)
                     .map((item: {sickCd: string; sickNm: string}) => item.sickNm);
