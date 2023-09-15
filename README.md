@@ -6,7 +6,7 @@
 * 진행기간: 2023.09.05-2023.09.07
 
 #### 배포링크 및 데모영상
-* 배포 링크: https://search-recommend-serivce.vercel.app/
+* 배포 링크: https://search-recommend-serivce-zfyf.vercel.app/
 * 데모 영상
   ![intro](https://github.com/Aroma-oh/search-recommend-serivce/assets/115550622/a168220d-b605-43b1-b6e6-66d4cb7db0e8)
 
@@ -44,14 +44,14 @@ $ npm start
 * 키워드가 업데이트되면 먼저 캐시 스토어를 조회합니다.
 * 조회는 키워드 완전 매칭과 expire time 검사를 합니다. 만약, 키워드가 캐싱 키 값과 완전 매칭되고 만료되기 전이라면 API 호출 없이 데이터를 반환합니다.
 * 만일 이 외의 경우라면 API 호출하고, 결과를 `{ 키워드 : {data: string[], expireTime:number} }` 구조로 캐시 스토어에 새로 저장합니다. 
-### 1-3. 어디에 캐싱하지? 
+#### 1-3. 어디에 캐싱하지? 
 * 브라우저 스토리지 디스크를 이용하여 탭을 닫아도 유지되는 indexedDB, cache storage와, 브라우저 종료시 사라지는 상태를 후보로 두고 고민을 했습니다.
 * 후보 모두 인위적으로 메모리를 비워주어야 하기 때문에, 탭을 닫으면 모든 캐싱을 제거하는 상태로 관리를 선택했습니다.
 * 캐시 스토어로써 사용되는 상태는 recoil atom을 이용했습니다. 
-### API 호출 횟수 최소화 전략
+### 2. API 호출 횟수 최소화 전략
 * API 호출 횟수를 줄이는 전략으로 키워드 핸들링을 선택했습니다. 내용은 ["키워드를 전처리하자"](https://github.com/Aroma-oh/search-recommend-serivce#%ED%82%A4%EC%9B%8C%EB%93%9C%EB%A5%BC-%EC%A0%84%EC%B2%98%EB%A6%AC%ED%95%98%EC%9E%90)와 같으며, 관련 코드는 아래와 같습니다.
   https://github.com/Aroma-oh/search-recommend-serivce/blob/38b045f69280afcedf910f73895f0706985bcfae/src/hooks/useUpdateKeyword.ts#L12-L34
-### 키보드만으로 추천 검색어 이동 방안
+### 3. 키보드만으로 추천 검색어 이동 방안
 * 키보드 이벤트의 'ArrowUp', 'ArrowDown'를 이용하여 방향키로 추천 검색어를 선택하고, 'Enter' 키로 검색이 가능하도록 했습니다.
   https://github.com/Aroma-oh/search-recommend-serivce/blob/38b045f69280afcedf910f73895f0706985bcfae/src/hooks/useSelectList.ts#L3-L43
 
