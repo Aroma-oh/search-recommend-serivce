@@ -5,6 +5,9 @@
 * 원티드 프리온보딩 3주차 개인과제로 진행했습니다.
 * 진행기간: 2023.09.05-2023.09.07
 
+#### 기술 스택
+* React, TypeScript, Styled-component, Axios
+
 #### 배포링크 및 데모영상
 * 배포 링크: https://search-recommend-serivce-zfyf.vercel.app/
 * 데모 영상
